@@ -8,7 +8,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000', // Asegúrate de que este puerto sea correcto
+      '/api': 'http://localhost:3000',
     },
   },
 });

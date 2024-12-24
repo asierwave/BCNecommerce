@@ -2,13 +2,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  base: '/BCNecommerce/', // Reemplaza 'nombre-del-repositorio' con el nombre real de tu repositorio
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
   server: {
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api': 'https://asierwave.github.io/BCNecommerce/',
     },
   },
 });

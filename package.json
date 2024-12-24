@@ -1,26 +1,25 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "modern-ecommerce",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "node server/index.js"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@netlify/functions": "^2.6.0",
     "@stripe/stripe-js": "^2.4.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.18.3",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hot-toast": "^2.4.1",
-    "stripe": "^14.19.0",
-    "vite-react": "^3.0.0"
+    "react-router-dom": "^6.22.3",
+    "react-vite": "^0.0.5",
+    "stripe": "^14.18.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
@@ -31,6 +30,7 @@
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
+    "gh-pages": "^6.1.1",
     "globals": "^15.9.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",

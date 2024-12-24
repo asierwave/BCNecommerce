@@ -19,3 +19,9 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
+
+[[redirects]]
+  from = "/**/*.js"
+  to = "/:splat"
+  status = 200

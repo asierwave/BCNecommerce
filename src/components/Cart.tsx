@@ -9,7 +9,7 @@ interface CartProps {
   onRemoveItem: (productId: string) => void;
 }
 
-const stripePromise = loadStripe('pk_test_51QYtZHGMZ3gh0f5sILJkvjRihfkqX8W6wZsoDo9lYWyfSv7wJK3vjDIgkSTC9KsFlux9WVsmghcIvmXE5c8lIlFj00VfQcSbpc');
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY as string);
 
 export function Cart({ items, onUpdateQuantity, onRemoveItem }: CartProps) {
   const total = items.reduce(

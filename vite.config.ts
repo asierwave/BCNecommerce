@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/BCNecommerce/', // Reemplaza 'BCNecommerce' con el nombre de tu repositorio
+  base: 'https://asierwave.github.io/BCNecommerce/', // Reemplaza 'BCNecommerce' con el nombre de tu repositorio
   optimizeDeps: {
     exclude: ['lucide-react'],
   },

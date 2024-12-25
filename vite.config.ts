@@ -1,13 +1,11 @@
+// filepath: /Users/asier/Documents/GitHub/BCNecommerce/vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Usa rutas relativas para que funcionen en cualquier entorno
+  base: '/BCNecommerce/', // Reemplaza 'BCNecommerce' con el nombre de tu repositorio
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
 });
-
-

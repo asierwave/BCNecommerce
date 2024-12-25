@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://asierwave.github.io/BCNecommerce",
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "npm run dev",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",

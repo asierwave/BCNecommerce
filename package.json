@@ -5,12 +5,8 @@
   "type": "module",
   "homepage": "https://asierwave.github.io/BCNecommerce",
   "scripts": {
-    "predeploy": "npm run dev",
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@stripe/stripe-js": "^2.4.0",

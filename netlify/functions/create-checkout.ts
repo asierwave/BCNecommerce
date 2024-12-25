@@ -1,7 +1,7 @@
 import { Handler } from '@netlify/functions';
 import Stripe from 'stripe';
 
-const stripe = new Stripe('sk_test_51QYtZHGMZ3gh0f5sILJkvjRihfkqX8W6wZsoDo9lYWyfSv7wJK3vjDIgkSTC9KsFlux9WVsmghcIvmXE5c8lIlFj00VfQcSbpc', {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2023-10-16',
 });
 
@@ -20,8 +20,8 @@ const handler: Handler = async (event) => {
         quantity: item.quantity,
       })),
       mode: 'payment',
-      success_url: 'https://marumero.netlify.app/success',
-      cancel_url: 'https://marumero.netlify.app/cancel',
+      success_url: `${process.env.CLIENT_URL}/success`,
+      cancel_url: `${process.env.CLIENT_URL}/cancel`,
     });
 
     return {

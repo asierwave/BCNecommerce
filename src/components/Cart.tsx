@@ -14,26 +14,28 @@ export const Cart: React.FC = () => {
     const stripe = await stripePromise;
     if (!stripe) return;
 
-    // Here you would typically make a call to your backend to create a Stripe session
-    // For demo purposes, we'll just show an alert
-    // alert('In a real app, this would redirect to Stripe checkout');
-  const response = await fetch('/.netlify/functions/create-checkout-session', {
-    method: 'POST',
-    headers: {
-    'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ items }),
-  });
+    const response = await fetch('/.netlify/functions/create-checkout-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ items }),
+    });
 
-  const session = await response.json();
+    if (!response.ok) {
+      console.error('Failed to create checkout session');
+      return;
+    }
 
-  const result = await stripe.redirectToCheckout({
-    sessionId: session.id,
-  });
+    const session = await response.json();
 
-  if (result.error) {
-    console.error(result.error.message);
-  }
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+    }
   };
 
   if (!isOpen) return null;

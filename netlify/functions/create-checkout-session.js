@@ -47,7 +47,7 @@ exports.handler = async (event) => {
           product_data: {
             name: item.name,
           },
-          unit_amount: item.price * 100, // Ensure price is in cents (for dollars, multiply by 100)
+          unit_amount: Math.round(item.price * 100), // Ensure rounding
         },
         quantity: item.quantity,
       })),
@@ -56,19 +56,16 @@ exports.handler = async (event) => {
       cancel_url: `${process.env.URL}/cancel`,
     });
 
-    // Log session creation for debugging
-    console.log('Stripe Session Created:', session);
+    // Log the created session for debugging
+    console.log('Created Session:', session);
 
-    // Return the session ID in the response to the frontend
     return {
       statusCode: 200,
       body: JSON.stringify({ id: session.id }),
     };
   } catch (error) {
-    // Log full error stack for debugging
-    console.error('Error:', error.stack);
-
-    // Return error response with status 500
+    console.error('Error:', error);
+    console.error('Stripe Error Details:', error.raw); // Log Stripe error details for debugging
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message }),

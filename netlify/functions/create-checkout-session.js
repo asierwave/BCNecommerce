@@ -42,7 +42,6 @@ exports.handler = async (event) => {
       }
     });
 
-    // Crear la sesión de Stripe Checkout
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: items.map(item => ({

@@ -1,61 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ProductCard } from './components/ProductCard';
 import { Cart } from './components/Cart';
-import { CartButton } from './components/CartButton';
-import { CartProvider } from './context/CartContext';
-import { ShoppingBag } from 'lucide-react';
-import { fetchStripeProducts } from './services/stripeService';
-import { Product } from './types/product';
-import { useCartVisibility } from './hooks/useCartVisibility';
+import { useCartStore } from './store/cartStore';
+import { ShoppingCart } from 'lucide-react';
+import { useProducts } from './hooks/useProducts';
+import { LoadingSpinner } from './components/LoadingSpinner';
+import { ErrorMessage } from './components/ErrorMessage';
 
 function App() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { isCartVisible, toggleCart } = useCartVisibility();
-
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const stripeProducts = await fetchStripeProducts();
-        setProducts(stripeProducts);
-      } catch (error) {
-        console.error('Error loading products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProducts();
-  }, []);
+  const { products, loading, error } = useProducts();
+  const { items, isOpen, toggleCart } = useCartStore();
 
   return (
-    <CartProvider>
-      <div className="min-h-screen bg-gray-100">
-        <header className="bg-white shadow-sm sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <ShoppingBag className="text-blue-600" size={24} />
-              <h1 className="text-xl font-bold">Modern Home Store</h1>
-            </div>
-            <CartButton onClick={toggleCart} />
-          </div>
-        </header>
-        
-        <main className="max-w-7xl mx-auto px-4 py-8">
-          {loading ? (
-            <div className="text-center py-8">Loading products...</div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-        </main>
+    <div className="min-h-screen bg-gray-100">
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-900">BCN Shop</h1>
+          <button
+            onClick={toggleCart}
+            className="relative p-2 text-gray-600 hover:text-gray-900"
+          >
+            <ShoppingCart size={24} />
+            {items.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                {items.length}
+              </span>
+            )}
+          </button>
+        </div>
+      </header>
 
-        <Cart isVisible={isCartVisible} onClose={toggleCart} />
-      </div>
-    </CartProvider>
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        {loading ? (
+          <LoadingSpinner />
+        ) : error ? (
+          <ErrorMessage message={error} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+      </main>
+
+      <Cart />
+    </div>
   );
 }
 

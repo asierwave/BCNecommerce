@@ -1,5 +1,6 @@
 import { loadStripe } from '@stripe/stripe-js';
 
-export const stripePromise = loadStripe('pk_test_51QYtZHGMZ3gh0f5sLJxUpkwJ6YQdVrsvFFzzwtRiVjUFePzUH7o33YWer2UR9adevHqtNPLIYfFvH603CiiHxXDO00Um8a1DpC');
+export const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-export const CLIENT_URL = 'https://marumero.netlify.app';
+export const STRIPE_PRICE_API = 'https://api.stripe.com/v1/prices';
+export const STRIPE_PRODUCT_API = 'https://api.stripe.com/v1/products';

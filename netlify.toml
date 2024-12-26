@@ -1,46 +1,4 @@
-[build]
-  command = "npm run build"
-  publish = "dist"
-  functions = "netlify/functions"
-
-[dev]
-  command = "npm run dev"
-  targetPort = 5173
-  port = 8888
-  publish = "dist"
-  functions = "netlify/functions"
-
-[functions]
-  external_node_modules = ["stripe"]
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/**/*.js"
-  to = "/:splat"
-  status = 200
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  force = true
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Type = "text/html; charset=UTF-8"
-
-[[headers]]
-  for = "/assets/*.css"
-  [headers.values]
-    Content-Type = "text/css; charset=UTF-8"
-
-[[headers]]
-  for = "/assets/*.js"
-  [headers.values]
-    Content-Type = "application/javascript; charset=UTF-8"
-

@@ -1,5 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY); // Agregado para verificar la clave API
+
 exports.handler = async (event, context) => {
   try {
     const { items } = JSON.parse(event.body);
@@ -26,7 +28,6 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       body: JSON.stringify({ id: session.id }),
-      console.log(process.env.STRIPE_SECRET_KEY),
     };
   } catch (error) {
     return {

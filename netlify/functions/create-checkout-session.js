@@ -1,8 +1,6 @@
-require('dotenv').config(); // Cargar variables de entorno desde el archivo .env
-
+// filepath: /Users/asier/Documents/GitHub/BCNecommerce/netlify/functions/create-checkout-session.js
+require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
-console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY); // Agregado para verificar la clave API
 
 exports.handler = async (event, context) => {
   try {

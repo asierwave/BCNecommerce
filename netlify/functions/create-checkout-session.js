@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
   try {
-    console.log('Event:', event);
+    console.log('Raw Event Body:', event.body);
     const { items } = JSON.parse(event.body);
     console.log('Parsed Items:', items);
 
@@ -15,6 +15,12 @@ exports.handler = async (event) => {
       if (!item.name || !item.price || !item.quantity) {
         throw new Error('Item is missing required fields');
       }
+      if (isNaN(item.price) || item.price <= 0) {
+        throw new Error('Item price must be a positive number');
+      }
+      if (isNaN(item.quantity) || item.quantity <= 0) {
+        throw new Error('Item quantity must be a positive integer');
+      }
     });
 
     // Create Stripe session
@@ -26,7 +32,7 @@ exports.handler = async (event) => {
           product_data: {
             name: item.name,
           },
-          unit_amount: item.price * 100,
+          unit_amount: item.price * 100, // Ensure price is in cents
         },
         quantity: item.quantity,
       })),

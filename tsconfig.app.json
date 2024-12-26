@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "api"]
+  "include": ["src", "api", "netlify/functions/create-checkout-session.js"]
 }

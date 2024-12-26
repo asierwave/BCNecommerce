@@ -1,15 +1,15 @@
 import React from 'react';
 import { ProductCard } from './components/ProductCard';
-import Cart from './components/Cart'; // Asegúrate de que la importación sea correcta
+import { Cart } from './components/Cart';
 import { useCartStore } from './store/cartStore';
 import { ShoppingCart } from 'lucide-react';
 import { useProducts } from './hooks/useProducts';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { ErrorMessage } from './components/ErrorMessage';
 
-const App = () => {
+function App() {
   const { products, loading, error } = useProducts();
-  const { items, total, removeItem, isOpen, toggleCart } = useCartStore();
+  const { items, isOpen, toggleCart } = useCartStore();
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -44,9 +44,9 @@ const App = () => {
         )}
       </main>
 
-      <Cart items={items} total={total} removeItem={removeItem} />
+      <Cart />
     </div>
   );
-};
+}
 
 export default App;

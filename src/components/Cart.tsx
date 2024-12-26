@@ -14,7 +14,7 @@ export const Cart: React.FC = () => {
     const stripe = await stripePromise;
     if (!stripe) return;
 
-    const response = await fetch('/.netlify/functions/create-checkout-session', {
+    const response = await fetch('/netlify/functions/create-checkout-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

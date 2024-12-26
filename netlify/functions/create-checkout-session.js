@@ -1,8 +1,8 @@
 require('dotenv').config(); // Asegúrate de cargar las variables de entorno
 
-console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY); // Log para verificar la variable de entorno
+console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY); // Log para verificar (eliminar en producción)
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Inicializa Stripe AQUÍ
 
 exports.handler = async (event) => {
   try {
@@ -59,7 +59,7 @@ exports.handler = async (event) => {
     };
 
   } catch (error) {
-    console.error(error);
+    console.error("Error en la función:", error); // Log más descriptivo
     return {
       statusCode: 500,
       headers: {

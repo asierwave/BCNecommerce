@@ -1,5 +1,7 @@
 require('dotenv').config(); // Asegúrate de cargar las variables de entorno
 
+console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY); // Log para verificar la variable de entorno
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {

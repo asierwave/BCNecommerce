@@ -1,3 +1,5 @@
+require('dotenv').config(); // Cargar variables de entorno desde el archivo .env
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 console.log('Stripe Secret Key:', process.env.STRIPE_SECRET_KEY); // Agregado para verificar la clave API

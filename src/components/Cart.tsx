@@ -16,8 +16,8 @@ export const Cart: React.FC = () => {
 
     // Here you would typically make a call to your backend to create a Stripe session
     // For demo purposes, we'll just show an alert
-    alert('In a real app, this would redirect to Stripe checkout');
-  const response = await fetch('/create-checkout-session', {
+    // alert('In a real app, this would redirect to Stripe checkout');
+  const response = await fetch('./create-checkout-session', {
     method: 'POST',
     headers: {
     'Content-Type': 'application/json',

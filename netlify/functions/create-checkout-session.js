@@ -1,3 +1,4 @@
+// filepath: /Users/asier/Documents/GitHub/BCNecommerce/netlify/functions/create-checkout-session.js
 require('dotenv').config(); // Asegúrate de cargar las variables de entorno
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);

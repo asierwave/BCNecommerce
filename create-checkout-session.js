@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         payment_method_types: ['card'],
         line_items: items.map((item) => ({
           price_data: {
-            currency: 'usd',
+            currency: 'eur',
             product_data: {
               name: item.name,
               images: [item.image],

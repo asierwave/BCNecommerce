@@ -42,43 +42,15 @@ exports.handler = async (event) => {
       }
     });
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: items.map(item => ({
-        price_data: {
-          currency: 'usd', // Cambia la moneda si es necesario
-          product_data: {
-            name: item.name,
-          },
-          unit_amount: Math.round(item.price * 100), // Convertir dólares a centavos
-        },
-        quantity: item.quantity,
-      })),
-      mode: 'payment',
-      success_url: `${process.env.URL || 'http://localhost:8888'}/success`,
-      cancel_url: `${process.env.URL || 'http://localhost:8888'}/cancel`,
-    });
+    // Aquí puedes continuar con la lógica para crear la sesión de pago con Stripe
+    // ...
 
-    // Responder con el ID de la sesión
-    console.log('Created Session:', session);
-
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*', // Permitir cualquier origen
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
-      body: JSON.stringify({ id: session.id }),
-    };
   } catch (error) {
-    console.error('Error:', error);
-
-    // Responder con un error
+    console.error(error);
     return {
       statusCode: 500,
       headers: {
         'Access-Control-Allow-Origin': '*', // Permitir cualquier origen
-        'Access-Control-Allow-Headers': 'Content-Type',
       },
       body: JSON.stringify({ error: error.message }),
     };

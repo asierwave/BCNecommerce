@@ -1,13 +1,13 @@
 import React from 'react';
-import { useCartStore } from '../store/cartStore';
-import { Product } from '../types/product';
-import { ShoppingCart } from 'lucide-react';
+import { useCartStore } from '../lib/store';
+import type { Product } from '../lib/store';
+import { Plus } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem);
 
   return (
@@ -19,18 +19,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       />
       <div className="p-4">
         <h3 className="text-lg font-semibold">{product.name}</h3>
-        <p className="text-gray-600 mt-2">{product.description}</p>
-        <div className="mt-4 flex items-center justify-between">
-          <span className="text-xl font-bold">${product.price}</span>
-          <button
-            onClick={() => addItem(product)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors"
-          >
-            <ShoppingCart size={20} />
-            Add to Cart
-          </button>
-        </div>
+        <p className="text-gray-600 mt-1">${(product.price / 100).toFixed(2)}</p>
+        <p className="text-sm text-gray-500 mt-2">{product.description}</p>
+        <button
+          onClick={() => addItem(product)}
+          className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 flex items-center justify-center gap-2"
+        >
+          <Plus size={20} /> Add to Cart
+        </button>
       </div>
     </div>
   );
-};
+}

@@ -8,8 +8,13 @@ function App() {
 
   useEffect(() => {
     fetch('/api/products')
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then((data: Product[]) => setProducts(data))
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useCartStore } from '../lib/store';
 import { ShoppingCart, Minus, Plus, Trash2 } from 'lucide-react';
 
-export function Cart() {
+const Cart: React.FC = () => {
   const { items, removeItem, updateQuantity } = useCartStore();
   
   const total = items.reduce(
@@ -91,4 +91,6 @@ export function Cart() {
       </div>
     </div>
   );
-}
+};
+
+export default Cart;

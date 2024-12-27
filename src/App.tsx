@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { Product } from './lib/store';
+import ProductCard from './components/ProductCard'; // Importa el componente correctamente
+import Cart from './components/Cart'; // Importa el componente correctamente
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -31,10 +33,14 @@ function App() {
           </button>
         </div>
       </header>
-
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* Renderiza los productos aquí */}
+      <main className="max-w-7xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </main>
+      {isCartOpen && <Cart />}
     </div>
   );
 }

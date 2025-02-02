@@ -26,7 +26,7 @@ function App() {
           <div className="w-full flex justify-between items-center p-2">
            
             <Link to="/" className="flex items-center text-center font-staatliches">
-            <img src="public/images/marumero-logo.svg" alt="logo de Marumero" className="w-16 h-full object-cover opacity-100" />
+            <img src="public/images/marumeru-logo.png" alt="logo de Marumero" className="w-16 h-full object-cover opacity-100" />
               <h1 className='text-3xl text-dark'>MARUMERO</h1>
             </Link>
             <nav className="space-x-6 w-fit">
@@ -148,7 +148,7 @@ function HomePage() {
       <section className="relative bg-primary h-[100vh]">
 
         <div className="absolute inset-0 overflow-hidden">
-        <img src="public/images/hero-bg1.svg" alt="Nuestra tienda" className="h-screen relative object-cover opacity-50" />
+        <img src="public/images/hero-bg1.png" alt="Nuestra tienda" className="h-screen relative object-cover opacity-50" />
         <div className='absolute inset-0 bg-gradient-to-b from-transparent/0 via-background/60 to-background'></div>
         </div>
         <div className="flex relative h-full flex items-end justify-center">

@@ -152,7 +152,7 @@ function HomePage() {
         <div className='absolute inset-0 bg-gradient-to-b from-transparent/0 via-background/60 to-background'></div>
         </div>
         <div className="flex relative h-full flex items-end justify-center">
-          <div className="flex-column h-fit justify-center text-center text-dark max-w-2xl mb-40">
+          <div className="flex-column h-fit justify-center text-center text-dark max-w-2xl mb-28">
             <h2 className="flex text-4xl md:text-6xl justify-center font-staatliches mb-6">Bienvenido a Marumero</h2>
             <p className="flex text-l md:text-2xl mb-8">Descubre los mejores productos textiles pastel-goth</p>
             <a href="#products" className="flex w-full bg-primary text-background justify-center px-8 py-4 rounded-lg text-lg font-semibold hover:bg-opacity-80 transition">

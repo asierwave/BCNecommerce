@@ -47,9 +47,9 @@ function App() {
         </Routes>
 
         {/* Footer */}
-        <footer className="bg-dark text-white pt-12 mt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8">
+        <footer className="bg-dark flex text-white pt-12 mt-16">
+          <div className="w-[100vw] px-6 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pb-8">
               <div>
                 <h5 className="text-lg font-staatliches mb-4">Marumero</h5>
                 <p className="text-background">Tu tienda de textiles pastel-goth</p>
@@ -71,14 +71,14 @@ function App() {
               </div>
               <div>
                 <h5 className="text-lg font-staatliches mb-4">Síguenos</h5>
-                <div className="flex space-x-4">
-                  <a href="#" className="text-background hover:text-secondary">Facebook</a>
-                  <a href="#" className="text-background hover:text-secondary">Instagram</a>
-                  <a href="#" className="text-background hover:text-secondary">Twitter</a>
+                <div className="flex-column space-y-4">
+                  <a href="#" className="flex text-background hover:text-secondary">Facebook</a>
+                  <a href="#" className="flex text-background hover:text-secondary">Instagram</a>
+                  <a href="#" className="flex text-background hover:text-secondary">Twitter</a>
                 </div>
               </div>
             </div>
-            <div className="border-t border-background py-6 text-center">
+            <div className="border-t border-dark py-6 text-center">
               <p className="text-background">
                 © {new Date().getFullYear()} Marumero. Todos los derechos reservados.
               </p>
@@ -148,7 +148,7 @@ function HomePage() {
       <section className="relative bg-primary h-[100vh]">
 
         <div className="absolute inset-0 overflow-hidden">
-        <img src="/images/hero-bg1.svg" alt="Nuestra tienda" className="h-screen relative object-cover opacity-50" />
+        <img src="/images/hero-bg1.svg" alt="Nuestra tienda" className="w-[100%] h-screen relative object-cover opacity-50" />
         <div className='absolute inset-0 bg-gradient-to-b from-transparent/0 via-background/60 to-background'></div>
         </div>
         <div className="flex relative h-full flex items-end justify-center">

@@ -12,7 +12,7 @@ export function ProductCard({ product, onAddToBasket }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <div className="bg-background rounded-lg shadow-md overflow-hidden">
+    <div className="rounded-lg shadow-md overflow-hidden">
       <img
         src={product.image}
         alt={product.name}
@@ -35,7 +35,7 @@ export function ProductCard({ product, onAddToBasket }: ProductCardProps) {
             />
             <button
               onClick={() => onAddToBasket(product, quantity)}
-              className="bg-background text-primary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary text-background transition-colors"
+              className="bg-background text-primary px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary text-white transition-colors"
             >
               <ShoppingCart size={40} />
             </button>

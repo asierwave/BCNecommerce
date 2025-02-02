@@ -21,7 +21,7 @@ export function QuantityControl({
         disabled={quantity <= min}
         className="p-1 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Minus size={16} />
+        <Minus size={24} />
       </button>
       <span className="w-8 text-center">{quantity}</span>
       <button
@@ -29,7 +29,7 @@ export function QuantityControl({
         disabled={quantity >= max}
         className="p-1 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Plus size={16} />
+        <Plus size={24} />
       </button>
     </div>
   );

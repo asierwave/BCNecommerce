@@ -12,11 +12,11 @@ export function ProductCard({ product, onAddToBasket }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <div className="bg-dark rounded-lg shadow-md overflow-hidden">
+    <div className="bg-background rounded-lg shadow-md overflow-hidden">
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-fit object-cover z-[-10]"
+        className="w-full h-[300px] object-cover z-[-10]"
       />
       <div className="p-4">
         <h3 className="text-lg font-semibold">{product.name}</h3>

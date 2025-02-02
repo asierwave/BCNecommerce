@@ -184,7 +184,7 @@ function HomePage() {
       </section>
 
       {/* Products Section */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" id="products">
+      <main className="max-w-6xl mx-auto px-8 sm:px-8 lg:px-8 py-12" id="products">
         {loading ? (
           <div className="text-center py-12"><LoadingSpinner /></div>
         ) : error ? (

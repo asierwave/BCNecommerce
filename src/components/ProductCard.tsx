@@ -16,7 +16,7 @@ export function ProductCard({ product, onAddToBasket }: ProductCardProps) {
       <img
         src={product.image}
         alt={product.name}
-        className="w-full h-full object-cover z-[-1]"
+        className="w-full h-fit object-cover z-[-10]"
       />
       <div className="p-4">
         <h3 className="text-lg font-semibold">{product.name}</h3>

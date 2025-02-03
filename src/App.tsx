@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; // <-- Importación de hooks
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { ProductCard } from './components/ProductCard';
 import { Basket } from './components/Basket';
@@ -9,36 +9,91 @@ import { ContactPage } from './pages/ContactPage';
 import { FaqPage } from './pages/FaqPage';
 import { ReturnsPage } from './pages/ReturnsPage';
 import { LegalPage } from './pages/LegalPage';
+import { ShoppingCart, LeafyGreen } from 'lucide-react';
 import {
   TruckIcon,
   ShieldCheckIcon,
   CurrencyDollarIcon,
-  BeakerIcon,
 } from '@heroicons/react/24/outline';
-import { LeafyGreenIcon } from 'lucide-react';
 
 function App() {
+  const [isBasketOpen, setIsBasketOpen] = useState(false);
+  const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
+
+  const removeFromBasket = (productId: string) => {
+    setBasketItems(currentItems => currentItems.filter(item => item.id !== productId));
+  };
+
+  const itemCount = basketItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <Router>
       <div className="flex-column min-h-screen w-[100vw] bg-background">
         {/* Header */}
-        <header className="flex fixed z-10 w-[97vw] bg-background h-16 items-center m-2 rounded-3xl px-2 text-primary shadow-sm">
+        <header className="flex fixed z-30 w-[97vw] bg-background h-16 items-center m-2 rounded-3xl px-2 text-primary shadow-sm">
           <div className="w-full flex justify-between items-center p-2">
-           
             <Link to="/" className="flex items-center text-center font-staatliches">
-            <img src="/images/marumero-logo.svg" alt="logo de Marumero" className="w-16 h-full object-cover opacity-100" />
+              <img 
+                src="/images/marumero-logo.svg" 
+                alt="logo de Marumero" 
+                className="w-16 h-full object-cover" 
+              />
               <h1 className='text-3xl text-dark'>MARUMERO</h1>
             </Link>
-            <nav className="space-x-6 w-fit">
-              <Link to="/contacto" className="hover:text-secondary">Contacto</Link>
-              <Link to="/faq" className="hover:text-secondary">FAQ</Link>
-              {/* <Link to="/devoluciones" className="hover:text-secondary">Devoluciones</Link> */}
+            <nav className="flex items-center space-x-6 w-fit cursor-pointer text-dark">
+              <Link to="/contacto" className="flex hover:text-primary">Contacto</Link>
+              <Link to="/faq" className="flex hover:text-primary">FAQ</Link>
+              <button 
+                onClick={() => setIsBasketOpen(!isBasketOpen)}
+                className="relative items-center content-center bg-primary text-background rounded-3xl pl-3 pt-2 pb-2 pr-3 hover:opacity-60 transition-colors"
+              >
+                <ShoppingCart className="w-6 h-6 text-background" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-background text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
             </nav>
           </div>
         </header>
 
+        <Basket
+          items={basketItems}
+          onRemoveItem={removeFromBasket}
+          onCheckout={() => {
+            const handleCheckout = async () => {
+              const stripe = await stripePromise;
+              if (!stripe) return;
+              try {
+                const sessionId = await createCheckoutSession(
+                  basketItems.map((item) => ({ 
+                    price: item.id, 
+                    quantity: item.quantity 
+                  }))
+                );
+                const { error } = await stripe.redirectToCheckout({ sessionId });
+                if (error) console.error('Error:', error);
+              } catch (err) {
+                console.error('Checkout error:', err);
+              }
+            };
+            handleCheckout();
+          }}
+          isOpen={isBasketOpen}
+          onToggle={() => setIsBasketOpen(!isBasketOpen)}
+        />
+
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route 
+            path="/" 
+            element={
+              <HomePage 
+                basketItems={basketItems}
+                setBasketItems={setBasketItems}
+              />
+            } 
+          />
           <Route path="/contacto" element={<ContactPage />} />
           <Route path="/faq" element={<FaqPage />} />
           <Route path="/devoluciones" element={<ReturnsPage />} />
@@ -90,10 +145,14 @@ function App() {
   );
 }
 
-// Componente HomePage
-function HomePage() {
+function HomePage({
+  basketItems,
+  setBasketItems
+}: {
+  basketItems: BasketItem[],
+  setBasketItems: React.Dispatch<React.SetStateAction<BasketItem[]>>
+}) {
   const [products, setProducts] = useState<Product[]>([]);
-  const [basketItems, setBasketItems] = useState<BasketItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -124,38 +183,26 @@ function HomePage() {
     });
   };
 
-  const removeFromBasket = (productId: string) => {
-    setBasketItems((currentItems) => currentItems.filter((item) => item.id !== productId));
-  };
-
-  const handleCheckout = async () => {
-    const stripe = await stripePromise;
-    if (!stripe) return;
-    try {
-      const sessionId = await createCheckoutSession(
-        basketItems.map((item) => ({ price: item.id, quantity: item.quantity }))
-      );
-      const { error } = await stripe.redirectToCheckout({ sessionId });
-      if (error) console.error('Error:', error);
-    } catch (err) {
-      console.error('Checkout error:', err);
-    }
-  };
-
   return (
     <>
       {/* Hero Section */}
       <section className="relative bg-primary h-[100vh]">
-
         <div className="absolute inset-0 overflow-hidden">
-        <img src="/images/hero-bg1.svg" alt="Nuestra tienda" className="w-[100%] h-screen relative object-cover opacity-50" />
-        <div className='absolute inset-0 bg-gradient-to-b from-transparent/0 via-background/60 to-background'></div>
+          <img 
+            src="/images/hero-bg1.svg" 
+            alt="Nuestra tienda" 
+            className="w-full h-screen object-cover opacity-50" 
+          />
+          <div className='absolute inset-0 bg-gradient-to-b from-transparent/0 via-background/60 to-background'></div>
         </div>
-        <div className="flex relative h-full flex items-end justify-center">
-          <div className="flex-column h-fit justify-center text-center text-dark max-w-2xl mb-28">
-            <h2 className="flex text-4xl md:text-6xl justify-center font-staatliches mb-6">Bienvenido a Marumero</h2>
-            <p className="flex text-l md:text-2xl mb-8">Descubre los mejores productos textiles pastel-goth</p>
-            <a href="#products" className="flex w-full bg-primary text-background justify-center px-8 py-4 rounded-lg text-lg font-semibold hover:bg-opacity-80 transition">
+        <div className="flex relative h-full items-end justify-center">
+          <div className="flex flex-col h-fit justify-center text-center text-dark max-w-2xl mb-28">
+            <h2 className="text-4xl md:text-6xl font-staatliches mb-6">Bienvenido a Marumero</h2>
+            <p className="text-lg md:text-2xl mb-8">Descubre los mejores productos textiles pastel-goth</p>
+            <a 
+              href="#products" 
+              className="bg-primary text-background px-8 py-4 rounded-lg text-lg font-semibold hover:bg-opacity-80 transition mx-auto"
+            >
               Ver Productos
             </a>
           </div>
@@ -171,9 +218,12 @@ function HomePage() {
               [TruckIcon, 'Envío Express', 'Recibe tu pedido en 24-48 horas laborales'],
               [ShieldCheckIcon, 'Garantía Total', '2 años de garantía en todos nuestros productos'],
               [CurrencyDollarIcon, 'Precios Bajos', 'Las mejores ofertas garantizadas'],
-              [LeafyGreenIcon, 'Sostenibilidad Premium', 'Materiales sostenibles y componentes de primera calidad']
+              [LeafyGreen, 'Sostenibilidad Premium', 'Materiales sostenibles y componentes de primera calidad']
             ].map(([Icon, title, text], index) => (
-              <div key={index} className="text-center p-6 hover:bg-primary/10 rounded-lg transition-all">
+              <div 
+                key={index} 
+                className="text-center p-6 hover:bg-primary/10 rounded-lg transition-all"
+              >
                 <Icon className="h-12 w-12 mx-auto text-primary mb-4" />
                 <h4 className="text-xl font-staatliches mb-2">{title}</h4>
                 <p className="text-dark/80">{text}</p>
@@ -192,11 +242,14 @@ function HomePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} onAddToBasket={addToBasket} />
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                onAddToBasket={addToBasket} 
+              />
             ))}
           </div>
         )}
-        <Basket items={basketItems} onRemoveItem={removeFromBasket} onCheckout={handleCheckout} />
       </main>
     </>
   );

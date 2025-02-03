@@ -1,35 +1,31 @@
-import React from 'react';
-import { Minus, Plus } from 'lucide-react';
-
 interface QuantityControlProps {
   quantity: number;
-  onQuantityChange: (newQuantity: number) => void;
-  min?: number;
-  max?: number;
+  onQuantityChange: (value: number) => void;
+  variant?: 'dark' | 'light';
 }
 
-export function QuantityControl({
-  quantity,
+export function QuantityControl({ 
+  quantity, 
   onQuantityChange,
-  min = 1,
-  max = 99
+  variant = 'dark' 
 }: QuantityControlProps) {
+  const textColor = variant === 'dark' ? 'text-dark' : 'text-background';
+  const borderColor = variant === 'dark' ? 'border-dark' : 'border-background';
+
   return (
-    <div className="flex items-center gap-2">
+    <div className={`flex items-center border ${borderColor} rounded-lg`}>
       <button
-        onClick={() => quantity > min && onQuantityChange(quantity - 1)}
-        disabled={quantity <= min}
-        className="p-1 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={() => onQuantityChange(Math.max(1, quantity - 1))}
+        className={`px-2 py-1 ${textColor} hover:bg-primary/10`}
       >
-        <Minus size={24} />
+        -
       </button>
-      <span className="w-8 text-center">{quantity}</span>
+      <span className={`px-3 ${textColor}`}>{quantity}</span>
       <button
-        onClick={() => quantity < max && onQuantityChange(quantity + 1)}
-        disabled={quantity >= max}
-        className="p-1 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={() => onQuantityChange(quantity + 1)}
+        className={`px-2 py-1 ${textColor} hover:bg-primary/10`}
       >
-        <Plus size={24} />
+        +
       </button>
     </div>
   );

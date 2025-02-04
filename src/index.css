@@ -3,11 +3,17 @@
 @import 'tailwindcss/utilities';
 
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Afacad&display=swap');
+
 
 body {
   @apply bg-background text-dark;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
   font-family: 'Staatliches', sans-serif;
+}
+
+h3, h4, h5, h6, p {
+  font-family: 'Afacad', sans-serif;
 }

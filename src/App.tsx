@@ -32,7 +32,7 @@ function App() {
     <Router>
       <div className="flex-column min-h-screen w-[100vw] bg-background">
         {/* Header */}
-        <header className="flex fixed z-30 w-[97vw] bg-background items-center m-2 h-fit rounded-3xl px-2 text-primary shadow-sm">
+        {/* <header className="flex fixed z-30 w-[97vw] bg-background items-center m-2 h-fit rounded-3xl px-2 text-primary shadow-sm">
           <div className="w-full flex justify-between items-center p-2">
             <Link to="/" className="flex items-center text-center font-staatliches">
               <img 
@@ -58,7 +58,7 @@ function App() {
               </button>
             </nav>
           </div>
-        </header>
+        </header> */}
 
         <Basket
           items={basketItems}
@@ -87,7 +87,7 @@ function App() {
         />
 
         <Routes>
-          <Route 
+          {/* <Route 
             path="/" 
             element={
               <HomePage 
@@ -95,11 +95,11 @@ function App() {
                 setBasketItems={setBasketItems}
               />
             } 
-          />
+          /> */}
 
           {/* Para momentos de mantenimiento descomentar esto y comentar la ruta de arriba a homepage */}
 
-          {/* <Route path="/" element={<MaintenancePage />} /> */}
+          <Route path="/" element={<MaintenancePage />} />
 
           <Route path="/sobrenosotros" element={<AboutUsPage />} />
           <Route path="/contacto" element={<ContactPage />} />
@@ -110,7 +110,7 @@ function App() {
         </Routes>
 
         {/* Footer */}
-        <footer className="bg-dark flex text-white pt-12 mt-16">
+        {/* <footer className="bg-dark flex text-white pt-12 mt-16">
           <div className="w-[100vw] px-6 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pb-8">
               <div>
@@ -148,7 +148,7 @@ function App() {
               </p>
             </div>
           </div>
-        </footer>
+        </footer> */}
       </div>
     </Router>
   );
